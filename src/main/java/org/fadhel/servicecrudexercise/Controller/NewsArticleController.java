@@ -93,6 +93,10 @@ public class NewsArticleController {
 
         ArrayList<NewsArticle> publishedNewsArticles = newsArticleService.getPublishedNewsArticles();
 
+        if(publishedNewsArticles.isEmpty()){
+            return ResponseEntity.status(400).body(new ApiResponse("no published news articles"));
+        }
+
         return ResponseEntity.status(200).body(publishedNewsArticles);
     }
 
@@ -101,6 +105,10 @@ public class NewsArticleController {
     public ResponseEntity<?> getNewsArticlesByCategory(@PathVariable String category){
 
         ArrayList<NewsArticle> searchedNewsArticles = newsArticleService.getNewsArticlesByCategory(category);
+
+        if(searchedNewsArticles.isEmpty()){
+            return ResponseEntity.status(400).body(new ApiResponse("no news articles found"));
+        }
 
         return ResponseEntity.status(200).body(searchedNewsArticles);
     }
